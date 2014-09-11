@@ -10,6 +10,10 @@ Set your local ENV["TWILIO_SID"] and ENV["TWILIO_TOKEN"] environment variables.
 
 run:
 	rake create
+	
+Wait a little while for the GrapheneDB instance to be up and running then run:
+
+	rake load
 
 For Twilio Documentation see https://www.twilio.com/docs/api/twiml
 	

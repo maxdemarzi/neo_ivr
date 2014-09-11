@@ -9,7 +9,10 @@ task :create do
   sh "bundle exec heroku config:set TWILIO_SID=" + ENV["TWILIO_SID"]
   sh "bundle exec heroku config:set TWILIO_TOKEN=" + ENV["TWILIO_TOKEN"]
   sh "git push heroku master"
-  sh "bundle exec heroku addons:add graphenedb --version v213"
+  sh "bundle exec heroku addons:add graphenedb:chalk --version v213"
+end
+
+task :load do
   sh "bundle exec heroku run rake db:migrate"
   sh "bundle exec heroku run rake db:populate"
 end
