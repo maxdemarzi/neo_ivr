@@ -213,9 +213,9 @@ get "/data.json" do
                            LIMIT 20")
   links = []                         
   result["results"][0]["data"].collect{|d| {:links => d["row"][0].last(2), :count => d["row"][1]}}.each do |link|
-    if (link[:links][1])
+    if (link[:links][1]) && (link[:links][0] != link[:links][1])
       source = nodes.index(link[:links][0])
-      target = nodes.index(link[:links][1] || "/hangup")
+      target = nodes.index(link[:links][1])
       links += [{:source => source, :target => target, :value => link[:count]}]
     end
   end
