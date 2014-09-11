@@ -56,7 +56,7 @@ post "/mainmenu" do
       when "9"
         r.Redirect "/", :method => "GET"
       else
-        r.Redirect "/notimplemented"
+        r.Redirect "/not_implemented"
       end
     end
 
