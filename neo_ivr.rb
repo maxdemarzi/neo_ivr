@@ -206,17 +206,18 @@ end
 get "/data.json" do
   result = $neo.commit_transaction("MATCH (p:Page) RETURN p.url")
   nodes = result["results"][0]["data"].collect{|d| d["row"][0]}.flatten
-  nodes += ["/hangup"]  
 
   result = $neo.commit_transaction("MATCH path=(p:Page {url:'/'})<-[:ON]-()-[:PREV*0..3]-()
                            RETURN EXTRACT(v in NODES(path)[1..LENGTH(path)+1] | v.url), count(path)
                            ORDER BY count(path) DESC
-                           LIMIT 100")
+                           LIMIT 20")
   links = []                         
   result["results"][0]["data"].collect{|d| {:links => d["row"][0].last(2), :count => d["row"][1]}}.each do |link|
-    source = nodes.index(link[:links][0])
-    target = nodes.index(link[:links][1] || "/hangup")
-    links += [{:source => source, :target => target, :value => link[:count]}]
+    if (link[:links][1])
+      source = nodes.index(link[:links][0])
+      target = nodes.index(link[:links][1] || "/hangup")
+      links += [{:source => source, :target => target, :value => link[:count]}]
+    end
   end
 
   nodes = nodes.collect{|n| {:name => n}}                           
