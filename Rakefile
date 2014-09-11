@@ -30,15 +30,15 @@ namespace :db do
                            "MERGE (u:Page {url: {url}})", {:url => "/billing"},
                            "MERGE (u:Page {url: {url}})", {:url => "/maintenance"},
                            "MERGE (u:Page {url: {url}})", {:url => "/representative"},
-                           "MERGE (u:Page {url: {url}})", {:url => "/notimplemented"},
+                           "MERGE (u:Page {url: {url}})", {:url => "/not_implemented"},
                            "MERGE (u:Page {url: {url}})", {:url => "/representative"},
                            "MERGE (u:Page {url: {url}})", {:url => "/payment"},
                            "MERGE (u:Page {url: {url}})", {:url => "/address"},
                            "MERGE (u:Page {url: {url}})", {:url => "/other_billing"},
                            "MERGE (u:Page {url: {url}})", {:url => "/heat"},
                            "MERGE (u:Page {url: {url}})", {:url => "/plumbing"},
-                           "MERGE (u:Page {url: {url}})", {:url => "/other_service"}])
-
+                           "MERGE (u:Page {url: {url}})", {:url => "/other_service"},
+                           "MERGE (u:Page {url: {url}})", {:url => "/other_maintenance"})
   end
 
 end
