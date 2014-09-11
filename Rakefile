@@ -37,7 +37,6 @@ namespace :db do
                            "MERGE (u:Page {url: {url}})", {:url => "/other_billing"},
                            "MERGE (u:Page {url: {url}})", {:url => "/heat"},
                            "MERGE (u:Page {url: {url}})", {:url => "/plumbing"},
-                           "MERGE (u:Page {url: {url}})", {:url => "/other_service"},
                            "MERGE (u:Page {url: {url}})", {:url => "/other_maintenance"}])
   end
 
