@@ -21,7 +21,7 @@ end
 get "/" do
   $neo.commit_transaction(["MERGE (u:User {number: {number}})", {:number => request["From"]}])
   $neo.commit_transaction(["MATCH (u:User {number: {number}}), (p:Page {url: {url}}) 
-    MERGE (u)-[:DIALED]->(e:Event {session: {session}})-[:ON]->(p)
+    MERGE (u)-[:DIALED]->(e:Event {session: {session}, url: {url}})-[:ON]->(p)
     RETURN e", 
     {:number => request["From"],
      :url => "/",
@@ -188,14 +188,11 @@ post "/not_implemented" do
 end
 
 def add_event(request, url)
-  puts "adding event"
-  puts url
-  puts request
     $neo.commit_transaction(["MATCH (old:Event {session: {session}})<-[:PREV*0..]-(latest)
       WHERE NOT(latest<-[:PREV]-())
       WITH latest
       LIMIT 1
-      CREATE (latest)<-[:PREV]-(e:Event {session: {session}})
+      CREATE (latest)<-[:PREV]-(e:Event {session: {session}, url: {url}})
       WITH e
       MATCH (u:User {number: {number}}), (p:Page {url: {url}})
       CREATE (u)-[:DIALED]->(e)-[:ON]->(p)
@@ -205,6 +202,4 @@ def add_event(request, url)
      :session => request["CallSid"]}
      ]) 
 end
-
-
 
